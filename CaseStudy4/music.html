@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>JavaJam Coffee House</title> 
+
+<meta charset=“utf-8”>
+<link rel="stylesheet" href = "CSS/style.css">
+<style>
+
+
+    table.Monthly_Video{
+        border:none;
+        margin:auto;
+        width: 20em;
+        overflow:auto;
+        height: 10em;
+
+    }
+    table.Monthly_Video{
+        overflow:hidden; 
+        overflow-y:scroll;
+    }
+    table.Monthly_Video tr:nth-of-type(odd){
+        height:1em;
+        background-color:chocolate;
+    }
+    table.Monthly_Video tr:nth-of-type(even){
+        height:1em;
+        max-width:20em;
+        background-color:none;
+    }
+    table.Monthly_Video video{
+        width:20em;
+        height:auto;
+    }
+</style>
+</head>
+<div id="wrapper">
+    <body>      
+        <header>
+            <img src="javalogo.gif" height ="95em" width ="500em"></a>
+        </header>
+        <div>
+            <nav>
+                <ul >
+                <li><a href = "index.html">Home </a> &nbsp </li>
+                <li><a href = "menu.php"> Menu </a> &nbsp  </li>
+                <li><a href = "music.html" style="color:chocolate"> Music </a> &nbsp </li>
+                <li><a href = "jobs.html"> Jobs </a> &nbsp </li>
+                </ul>
+            </nav>
+        </div>
+        <div id="main_content">
+            <div >
+                <h1 id="title" > Music at JavaJam </h1>
+                <p id="content">The first Friday night each month in JavaJam is a special night. Join us from 8pm to 11pm for music you do not want to miss.
+                </p>
+            </div>
+            <div>
+                <table class="Monthly_Video">
+                    <tr><td><strong>I want your love</strong></td></tr>
+                    <tr><td>
+                        <video controls>
+                            <source src="video1.mp4" type="video/mp4">
+                        </video>
+                    </td></tr>
+                    <tr><td><strong>Time has tears</strong></td></tr>
+                    <tr><td>
+                        <video controls>
+                            <source src="video2.mp4" type="video/mp4">
+                            </td></tr>
+                </table>
+            </div>
+
+        </div>
+    </body>
+    <footer>
+        <p>
+            <em> Copyright &copy 2014 JavaJam Coffee House </em>
+            <br>
+            <a href = "mailto:zhiwei@tan.com"><em> zhiwei@tan.com </em></a>
+        </p>
+    </footer>
+</div>
+</html>

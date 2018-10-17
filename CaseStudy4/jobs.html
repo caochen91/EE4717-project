@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>JavaJam Coffee House</title> 
+
+<meta charset=“utf-8”>
+<link rel="stylesheet" href = "CSS/style.css">
+<style>
+    
+    form.standard_form{
+        width:30em;
+    }
+    form.standard_form label{
+        float: left; clear: left; display: block; width: 100px;
+        text-align: right; padding-right: 10px; margin-top: 10px; 
+    }
+    form.standard_form input{
+        margin-top:10px;
+        margin-left:3em;
+    }
+    form.standard_form textarea{
+        margin-top:10px;
+        margin-left:3em;
+    }
+</style>
+<script>
+    var debug = true;
+    function onload() {
+        var currentTime = new Date();
+        var startdate = document.job_form.start_date;
+        debugPrint(debug, convertDateToString(currentTime));
+        startdate.min = convertDateToString(currentTime);
+        debugPrint(debug, document.job_form.start_date.min);
+
+        debugPrint(debug, "Loading body");
+    }
+    function convertDateToString(date) {
+        var dd = date.getDate();
+        var mm = date.getMonth() + 1;
+        var yyyy = date.getFullYear();
+        
+        if (dd < 10)
+            dd = '0' + dd;
+
+        if (mm < 10)
+            mm = '0' + mm;
+
+        return yyyy + "-" +mm +"-" +dd;
+    } 
+    //Converts date in the format of YYYY-MM-DD to date
+    function convertGoogleDateStringToDate(string){
+        var date = new Date();
+        var reg_exp_date = /[\d]+/g;
+
+        var match_date = [];        
+        var match;
+        var i = 0;
+        while((match = reg_exp_date.exec(string))!= null){
+            console.log(match[0]);
+            match_date[i] = parseInt(match[0]);
+            i++;
+        }
+
+        date.setYear(match_date[0]);
+        date.setMonth(match_date[1]);
+        date.setDate(match_date[2]);
+        date.setHours(0);
+        date.setMinutes(0);
+        date.setSeconds(0);
+        date.setMilliseconds(0);
+
+        console.log("Converting Google Date String to date..");
+        console.log("Input:" + string);
+        console.log("Input year:"+ (match_date[0]));
+        console.log("Input month:"+ (match_date[1]));
+        console.log("Input day:"+ (match_date[2]));
+        
+        console.log("Output date:" + date);
+
+        return date;
+
+    }
+    function validateForm() {
+       var reg_exp_at = /^[\w.-]+@[\w.-]+\.[A-Za-z]{2,6}$/;
+       //var reg_exp_name = /.*[\d+.]*/;
+       var reg_exp_name = /^([A-Za-z]+[ ]?){1,}$/;
+      
+
+        var reg_exp_email = /^[\w.-]+@[\w]+(\.[\w]+){0,2}\.[A-Za-z]{2,3}$/;
+        /*
+        //5 email extension: false
+        //var test_email = "dsadsa-dsad@dsa.dad.dad.dad.org";
+        //debugPrint(debug, test_email + ":" + reg_exp_email.test(test_email));
+        ////4 address extensions: true
+        //var test_email = "dsadsa-dsad@dsa.dad.dad.org";
+        ////debugPrint(debug, test_email + ":" + reg_exp_email.test(test_email));
+        ////3 address extensions: true
+        //var test_email = "dsadsa-dsad@dsa.dad.dad";
+        ////debugPrint(debug, test_email + ":" + reg_exp_email.test(test_email));
+        ////2 address extensions: true
+        //var test_email = "dsadsa-dsad@dsa.dad";
+        ////debugPrint(debug, test_email + ":" + reg_exp_email.test(test_email));
+        ////1 address extensions: false
+        //var test_email = "dsadsa-dsad@dsa";
+        ////debugPrint(debug, test_email + ":" + reg_exp_email.test(test_email));
+
+        //3 characters at the end : true
+        //var test_email = "dsadsa-dsad@dsa.dadasa.org";
+        //debugPrint(debug, test_email + ":" + reg_exp_email.test(test_email));
+        //4 character at the end : false
+        //var test_email = "dsadsa-dsad@dsa.dadasa.orgq";  
+        //debugPrint(debug, test_email + ":" +reg_exp_email.test(test_email));
+
+        //var test_name = "hahahaha"; //no space  True
+        //debugPrint(debug, test_name + ":" + reg_exp_name.test(test_name));
+        //var test_name = "hahah haha"; //with space True
+        //debugPrint(debug, test_name + ":" + reg_exp_name.test(test_name));
+        //var test_name = "haha ha ha"; //2 spaces True
+        //debugPrint(debug, test_name + ":" + reg_exp_name.test(test_name));
+        //var test_name = "ha ha ha ha"; //3 spaces True
+        //debugPrint(debug, test_name + ":" + reg_exp_name.test(test_name));
+        //var test_name = "hha 20"; //with number false
+        //debugPrint(debug, test_name +":" + reg_exp_name.test(test_name));
+        //var test_name = "hha --"; //with symbols false
+        //debugPrint(debug, test_name +":" + reg_exp_name.test(test_name));
+        //var test_name = "--  dad"; //with symbols false
+        //debugPrint(debug, test_name + ":" + reg_exp_name.test(test_name));
+        //var form = document.getElementbyID("job_form");
+       // var name = document.getElementsByName("name");
+       */
+        debugPrint(debug,document.job_form.name.value);
+        if (!reg_exp_name.test(document.job_form.name.value)){
+            alert("Name can must only contain characters and space!");
+            return false;
+        }
+        debugPrint(debug, document.job_form.mail.value);
+        if (!reg_exp_email.test(document.job_form.mail.value)) {
+            alert("The email format is wrong.");
+            return false;
+        }
+        debugPrint(debug, document.job_form.start_date.value);
+        if (convertGoogleDateStringToDate(document.job_form.start_date.value) < Date()) {
+            alert("The start date you have set is wrong.");
+            return false;
+        }
+        //return false;
+    }
+    function debugPrint(on, string) {
+        if (on) {
+            console.log(string);
+            //document.write(string);
+
+        }
+    }
+    function validateName(){
+        var reg_exp_name = /^([A-Za-z]+[ ]?){1,}$/;
+        if (!reg_exp_name.test(document.job_form.name.value)){
+            alert("Name can must only contain characters and space!");
+            return false;
+        }
+        
+        
+    }
+    function validateEmail(){
+        var reg_exp_email = /^[\w.-]+@[\w]+(\.[\w]+){0,2}\.[A-Za-z]{2,3}$/;
+        if (!reg_exp_email.test(document.job_form.mail.value)) {
+            alert("The email format is wrong.");
+            return false;
+        }
+    }
+    function validateDate(){
+        console.log("Validating Date");
+        if(document.job_form.start_date.value !='0'){
+            console.log(document.job_form.start_date.value);
+            var reg_exp_email = /^[\d-]+$/;
+            console.log(document.job_form.start_date.value + ":" + reg_exp_email.test(document.job_form.start_date.value));
+            //console.debug(convertGoogleDateStringToDate(document.job_form.start_date.value));
+            if(reg_exp_email.test(document.job_form.start_date.value)){
+                console.log(convertGoogleDateStringToDate(document.job_form.start_date.value));
+                console.log(convertGoogleDateStringToDate("Today date" + ":" + Date()));
+                if (convertGoogleDateStringToDate(document.job_form.start_date.value) < Date() ) {
+                    
+                    alert("The start date you have set is before today.");
+                    return false;
+                }
+            }else{
+                alert("The start date you have set is wrong.");
+                    return false;
+            }
+        }
+    }
+</script>
+</head>
+<div id="wrapper">
+    <body onload="onload()">
+        <header>
+            <img src="javalogo.gif" height ="95em" width ="500em"></a>
+        </header>
+        <div>
+            <nav>
+                <ul >
+                <li><a href = "index.html">Home </a> &nbsp </li>
+                <li><a href = "menu.php"> Menu </a> &nbsp  </li>
+                <li><a href = "music.html"> Music </a> &nbsp </li>
+                <li><a href = "jobs.html"> Jobs </a> &nbsp </li>
+                </ul>
+            </nav>
+        </div>
+        <div id="main_content">
+            <div >
+                <h1 id="title" > Jobs at JavaJam </h1>
+                <p id="content">Want to work at JavaJam? Fill out the form below to start your application. Required fields are marked with an asterick.
+                </p>
+            </div>
+            <div id="content">
+                <form name ="job_form" id="job_form" class="standard_form" method="POST" action="show_post.php" onsubmit="return validateForm()">
+                    <label for="name">*Name:</label>
+                    <input type="text" name="name" id="name" required onchange="validateName()"><br>
+                    <label for="email">*Email:</label>
+                    <input type="email" name="mail" id ="mail" required onchange="validateEmail()"><br>
+                    <label for="start_date">Start date:</label>
+                    <input type="date" name="start_date" id ="start_date" onchange="validateDate()"><br>
+                    <label for="experience">*Experience:</label>
+                    <textarea name="experience" id="experience" cols="30" rows="10" required></textarea><br>                   
+                </form>
+            </div>
+
+        </div>
+    </body>
+    <footer>
+        <p>
+            <em> Copyright &copy 2014 JavaJam Coffee House </em>
+            <br>
+            <a href = "mailto:zhiwei@tan.com"><em> zhiwei@tan.com </em></a>
+        </p>
+    </footer>
+    <script>
+        document.job_form.mail.addEventListener("change", validateEmail(), false);
+        document.job_form.name.addEventListener("change", validateName(), false);
+        document.job_form.start_date.addEventListener("onchange", validateDate(), false);
+    </script>
+</div>
+</html>
